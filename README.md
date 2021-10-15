@@ -15,7 +15,7 @@ dvc init
 ```
 create empty files
 ```bash
-touch src/__init__.py param.yaml dvc.yaml setup.py config/config.yaml src/stage_01_load_save.py src/utils/all_utils.py .gitignore
+touch src/__init__.py src/utils/__init__.py param.yaml dvc.yaml setup.py config/config.yaml src/stage_01_load_save.py src/utils/all_utils.py .gitignore
 ```
 
 
