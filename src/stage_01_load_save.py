@@ -8,7 +8,7 @@ import logging
 
 logging_str = "[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
 log_dir = "logs"
-create_directory((log_dir))
+os.mkdir(log_dir,exist_ok = True)
 logging.basicConfig(filename = os.path.join(log_dir, "running_logs_log"), level=logging.INFO,format=logging_str,filemode='a')
 
 def copy_file(source_download_dir, local_data_dir):
@@ -38,9 +38,9 @@ if __name__ == '__main__':
     parsed_args = args.parse_args()
 
     try:
-        logging.info("stage one started")
+        logging.info("\n>>>>>stage one started")
         get_data(config_path = parsed_args.config)
-        logging.info("stage one completed and data saved in local")
+        logging.info("stage one completed and data saved in local>>>>>")
     except Exception as e:
         logging.exception(e)
         raise e 
