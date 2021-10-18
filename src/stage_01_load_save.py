@@ -8,15 +8,15 @@ import logging
 
 logging_str = "[%(asctime)s: %(levelname)s: %(module)s]: %(message)s"
 log_dir = "logs"
-os.mkdir(log_dir,exist_ok = True)
-logging.basicConfig(filename = os.path.join(log_dir, "running_logs_log"), level=logging.INFO,format=logging_str,filemode='a')
+os.makedirs(log_dir,exist_ok = True)
+logging.basicConfig(filename = os.path.join(log_dir, "running_logs.log"), level=logging.INFO,format=logging_str,filemode="a")
 
-def copy_file(source_download_dir, local_data_dir):
-    list_of_files = os.listdir(source_download_dir)
+def copy_file(source_download_dirs, local_data_dirs):
+    list_of_files = os.listdir(source_download_dirs)
     N = len(list_of_files)
-    for file in tqdm(list_of_files, total=N, desc=f'copying file from {source_download_dir} to {local_data_dir}', colour="green"):
-        src = os.path.join(source_download_dir, file)
-        dest = os.path.join(local_data_dir, file)
+    for file in tqdm(list_of_files, total=N, desc=f'copying file from {source_download_dirs} to {local_data_dirs}', colour="green"):
+        src = os.path.join(source_download_dirs, file)
+        dest = os.path.join(local_data_dirs, file)
         shutil.copy(src, dest)
 
 def get_data(config_path):
@@ -25,9 +25,9 @@ def get_data(config_path):
     source_download_dirs = config["source_download_dirs"]
     local_data_dirs = config["local_data_dirs"]
 
-    for source_download_dir, local_data_dir in tqdm(zip(source_download_dirs, local_data_dirs), total=2, desc= "list of folders", colour="red"):
-        create_directory([local_data_dir])
-        copy_file(source_download_dir, local_data_dir)
+    for source_download_dirs, local_data_dirs in tqdm(zip(source_download_dirs, local_data_dirs), total=2, desc= "list of folders", colour="red"):
+        create_directory([local_data_dirs])
+        copy_file(source_download_dirs, local_data_dirs)
 
 
 if __name__ == '__main__':
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     try:
         logging.info("\n>>>>>stage one started")
         get_data(config_path = parsed_args.config)
-        logging.info("stage one completed and data saved in local>>>>>")
+        logging.info("stage one completed and data saved in local >>>>>")
     except Exception as e:
         logging.exception(e)
         raise e 
